@@ -11,5 +11,9 @@
     "url": "www.github.com/rockinrobin714/angular/ng-classifieds"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "angular-material": "^1.1.1",
+    "mdi": "^1.8.36"
+  }
 }
