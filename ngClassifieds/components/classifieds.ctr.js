@@ -1,9 +1,9 @@
-(function() {
+(function(){
 	"use strict";
 
 	angular
-		.module('ngClassified')
-		.controller('classifiedsCtrl', function(){
+		.module("ngClassifieds")
+		.controller("classifiedsCtrl", function(){
 			
-		});
+		})
 })();
