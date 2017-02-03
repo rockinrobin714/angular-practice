@@ -3,7 +3,10 @@
 
 	angular
 		.module("ngClassifieds")
-		.controller("classifiedsCtrl", function(){
-			
+		.controller("classifiedsCtrl", function($scope){
+			$scope.dog = {
+				first: "banana",
+				last: "Dykema"
+			}
 		})
 })();
