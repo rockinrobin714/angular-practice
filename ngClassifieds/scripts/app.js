@@ -1,6 +1,6 @@
 angular
 	.module("ngClassifieds", ["ngMaterial"])
-	.config(funciton($mdThemingProvider) {
+	.config(function($mdThemingProvider) {
 		$mdThemimgProvider.theme('default')
 			.primaryPalette('teal')
 			.accentPallette('orange')
