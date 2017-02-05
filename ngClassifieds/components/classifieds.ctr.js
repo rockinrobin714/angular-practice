@@ -4,9 +4,6 @@
 	angular
 		.module("ngClassifieds")
 		.controller("classifiedsCtrl", function($scope){
-			$scope.dog = {
-				first: "banana",
-				last: "Dykema"
-			}
+			$scope.message = 'Hello, world!!!'
 		})
 })();
