@@ -46,7 +46,7 @@
 			<md-button ng-if='!editing' ng-click='saveClassified(classified)' class='md-primary'>
 				Save
 			</md-button>
-			<md-button ng-if='editing' class='md-primary'>
+			<md-button ng-click='saveEdit()' ng-if='editing' class='md-primary'>
 				Save Edit
 			</md-button>
 			<md-button class='md-warn' ng-click='closeSidebar()'>
