@@ -40,6 +40,11 @@
 				$scope.closeSidebar();
 				showToast('Edit was saved')
 			}
+			$scope.deleteClassified = function(classified){
+				var index = $scope.classifieds.indexOf(classified);
+				$scope.classifieds.splice(index,1);
+			}
+
 			function showToast(message) {
 				$mdToast.show(
 					$mdToast.simple()
