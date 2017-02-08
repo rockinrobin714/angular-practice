@@ -23,9 +23,19 @@
 
 	<div class="filters" layout='row' layout-align='center center' ng-show='showFilters'> 
 		<md-input-container>
+			<label>Category</label>
+			<md-select>
+				<md-option ng-repeat='category in categories' value='{{ category }}'>
+				{{ category }}
+				</md-option>
+			</md-select>
+		</md-input-container>
+
+		<md-input-container>
 			<label>Enter Search Term</label>
 			<input type='text' ng-model='classifiedsFilter'>
 		</md-input-container>
+
 	</div>
 
 	<md-sidenav class='md-sidenav-left md-whiteframe-z2' md-component-id='left'>
@@ -127,5 +137,6 @@
     <script src="scripts/app.js"></script>
     <script src="components/classifieds.ctr.js"></script>
     <script src="components/classifieds.fac.js"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js'></script>
 </body>
 </html>
