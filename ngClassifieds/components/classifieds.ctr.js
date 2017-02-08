@@ -33,6 +33,10 @@
 							.hideDelay(3000)
 						);
 				}
+			}
+			$scope.editClassified = function(){
+				$scope.editing = true;
+				$scope.openSidebar();
 			}	
 		})
 })();
