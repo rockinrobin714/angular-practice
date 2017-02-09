@@ -19,6 +19,7 @@
       vm.categories;
       vm.editing;
       vm.classified;
+      vm.status;
 
       classifiedsFactory.getClassifieds().then(function(data) {
         $vm.classifieds = data.data;
@@ -50,10 +51,10 @@
 
       function saveClassified(classified) {
         if(classified) {
-          $scope.classified.contact = contact;
-          $scope.classifieds.push(classified);
-          $scope.classified = {};
-          $scope.closeSidebar();
+          vm.classified.contact = contact;
+          vm.classifieds.push(classified);
+          vm.classified = {};
+          closeSidebar();
           showToast('Classified Saved');
         }
       }
@@ -81,9 +82,7 @@
           var index = vm.classifieds.indexOf(classified);
           vm.classifieds.splice(index, 1);
           showToast('Classified Deleted');
-        }, function() {
-          
-        });
+        }
       };
 
     });
