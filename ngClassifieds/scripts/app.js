@@ -1,8 +1,4 @@
-(function() {
-
-  "use strict";
-
-  angular
+angular
     .module('ngClassifieds', ['ngMaterial', 'ui.router'])
     .config(function($mdThemingProvider, $stateProvider) {
       $mdThemingProvider.theme('default')
@@ -11,7 +7,8 @@
       $stateProvider
       	.state('stateone', {
       		url: '/stateone',
-      		template: '<h1>State One</h1>'
+      		template: '<h1>{{ stateone.message }}</h1>',
+      		controller: 'stateOneCtrl as stateone'
       	})
       	.state('statetwo', {
       		url: '/statetwo',
@@ -21,6 +18,8 @@
       		url: '/more',
       		template: '<p>This is the deeper state</p>'
       	});
-    });
-        
-})();
+    })
+    .controller('stateOneCtrl', function($scope){
+    	var vm = this;
+    	vm.message = 'Hey from state one';
+    })
