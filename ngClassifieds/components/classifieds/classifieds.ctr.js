@@ -4,33 +4,32 @@
 
   angular
     .module('ngClassifieds')
-    .controller('classifiedsController', function($scope, $state, $mdSidenav, $mdDialog, $mdToast, classifiedsFactory) {
+    .controller('classifiedsController', function($scope, $mdToast, $mdSidenav, $mdDialog, $state, $stateParams, classifiedsFactory) {
 
       var vm = this;
 
       vm.openSidebar = openSidebar;
-      vm.closeSidebar = closeSidebar;
-      vm.saveClassified = saveClassified;
       vm.editClassified = editClassified;
-      vm.saveEdit = saveEdit;
       vm.deleteClassified = deleteClassified;
-
-      vm.classifieds;
-      vm.categories;
-      vm.editing;
-      vm.classified;
-      vm.status;
+      vm.showSearchBar = false;
+      vm.showFilters = false;
 
       classifiedsFactory.getClassifieds().then(function(data) {
-        $vm.classifieds = data.data;
-        $vm.categories = getCategories($vm.classifieds);
+        vm.classifieds = data.data;
+        vm.categories = getCategories(vm.classifieds);
       });
 
-      var contact = {
-        name: "Robin Dykema", 
-        phone: "(555) 555-5555",
-        email: "robindykema@gmail.com"
-      }
+      $scope.$on('newClassified', function(event, data) {
+        data.id = vm.classifieds.length + 1;
+        vm.classifieds.push(data);
+        showToast('Classified Saved');
+      });
+
+      $scope.$on('editSaved', function(event, message) {
+        showToast(message);
+      });
+
+      vm.sidebarTitle;
 
       function showToast(message) {
         $mdToast.show(
@@ -42,34 +41,15 @@
       }
 
       function openSidebar() {
-        $state.go('classifieds.new')
-      }
-
-      function closeSidebar() {
-        $mdSidenav('left').close();
-      }
-
-      function saveClassified(classified) {
-        if(classified) {
-          vm.classified.contact = contact;
-          vm.classifieds.push(classified);
-          vm.classified = {};
-          closeSidebar();
-          showToast('Classified Saved');
-        }
+        vm.sidebarTitle = 'Add a Classified';
+        $state.go('classifieds.new');
       }
 
       function editClassified(classified) {
         vm.editing = true;
-        openSidebar();
+        vm.sidebarTitle = 'Edit Classified';
         vm.classified = classified;
-      }
-
-      function saveEdit() {
-        vm.editing = false;
-        vm.classified = {};
-        closeSidebar();
-        showToast('Edit Saved');
+        $state.go('classifieds.edit', { id: classified.id, classified: classified });
       }
 
       function deleteClassified(event, classified) {
@@ -79,13 +59,16 @@
             .ok('Yes')
             .cancel('No');
         $mdDialog.show(confirm).then(function() {
+          console.log(event);
           var index = vm.classifieds.indexOf(classified);
           vm.classifieds.splice(index, 1);
           showToast('Classified Deleted');
-      });
-    };
-    
-    function getCategories(classifieds) {
+        }, function() {
+          vm.status = classified.title + ' is still here.';
+        });
+      }
+
+      function getCategories(classifieds) {
 
         var categories = [];
 
@@ -97,4 +80,7 @@
 
         return _.uniq(categories);
       }
+
+    });
+
 })();
