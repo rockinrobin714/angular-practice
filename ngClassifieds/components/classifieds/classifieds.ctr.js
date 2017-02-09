@@ -6,15 +6,29 @@
     .module('ngClassifieds')
     .controller('classifiedsController', function($scope, $mdSidenav, $mdDialog, $mdToast, classifiedsFactory) {
 
+      var vm = this;
+
+      vm.openSidebar = openSidebar;
+      vm.closeSidebar = closeSidebar;
+      vm.saveClassified = saveClassified;
+      vm.editClassified = editClassified;
+      vm.saveEdit = saveEdit;
+      vm.deleteClassified = deleteClassified;
+
+      vm.classifieds;
+      vm.categories;
+      vm.editing;
+      vm.classified;
+
       classifiedsFactory.getClassifieds().then(function(data) {
-        $scope.classifieds = data.data;
-        $scope.categories = getCategories($scope.classifieds);
+        $vm.classifieds = data.data;
+        $vm.categories = getCategories($vm.classifieds);
       });
 
       var contact = {
-        name: "Ryan Chenkie", 
+        name: "Robin Dykema", 
         phone: "(555) 555-5555",
-        email: "ryanchenkie@gmail.com"
+        email: "robindykema@gmail.com"
       }
 
       function showToast(message) {
@@ -26,17 +40,15 @@
         );
       }
 
-      $scope.openSidebar = function() {
-        $scope.sidebarTitle = 'Add a Classified';
+      function openSidebar() {
         $mdSidenav('left').open();
       }
 
-      $scope.closeSidebar = function() {
-        $scope.classified = {};
+      function closeSidebar() {
         $mdSidenav('left').close();
       }
 
-      $scope.saveClassified = function(classified) {
+      function saveClassified(classified) {
         if(classified) {
           $scope.classified.contact = contact;
           $scope.classifieds.push(classified);
@@ -46,33 +58,31 @@
         }
       }
 
-      $scope.editClassified = function(classified) {
-        $scope.editing = true;
-        $scope.sidebarTitle = 'Edit Classified';
-        $scope.classified = classified;
-        $mdSidenav('left').open();
+      function editClassified(classified) {
+        vm.editing = true;
+        openSidebar();
+        vm.classified = classified;
       }
 
-      $scope.saveEdit = function() {
-        $scope.editing = false;
-        // Need to clear the form after, or else it will be populated when we go to add new classifieds
-        $scope.classified = {};
-        $mdSidenav('left').close();
+      function saveEdit() {
+        vm.editing = false;
+        vm.classified = {};
+        closeSidebar();
         showToast('Edit Saved');
       }
 
-      $scope.deleteClassified = function(event, classified) {
+      function deleteClassified(event, classified) {
         var confirm = $mdDialog.confirm()
             .title('Are you sure you want to delete ' + classified.title + '?')
             .targetEvent(event)
             .ok('Yes')
             .cancel('No');
         $mdDialog.show(confirm).then(function() {
-          var index = $scope.classifieds.indexOf(classified);
-          $scope.classifieds.splice(index, 1);
+          var index = vm.classifieds.indexOf(classified);
+          vm.classifieds.splice(index, 1);
           showToast('Classified Deleted');
         }, function() {
-          $scope.status = classified.title + ' is still here.';
+          
         });
       };
 
