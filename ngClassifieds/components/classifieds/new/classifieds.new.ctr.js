@@ -3,7 +3,13 @@
 
 	angular
 		.module('ngClassifieds')
-		.controller('newClassifiedCtrl', function($mdSidenav, $mdDialog, classifiedsFactory){
+		.controller('newClassifiedsCtrl', function($mdSidenav, $timeout, $mdDialog, classifiedsFactory){
+
 			var vm = this;
+
+			$timeout(function(){
+				$mdSidenav('left').open();
+			})
+
 		})
 })();

@@ -17,68 +17,8 @@
       </div>
     </md-toolbar>
     
-    <div class="filters" layout="row" layout-align="center center" ng-show="showFilters">
-      <md-input-container>
-        <label>Enter a Search Term</label>
-        <input ng-model="classifiedsFilter" type="text">
-      </md-input-container>
+    <ui-view></ui-view>
 
-      <md-input-container>
-        <label>Category</label>
-        <md-select ng-model="category">
-          <md-option ng-repeat="category in vm.categories" value="{{ category }}">  
-            {{ category }}
-          </md-option>
-        </md-select>
-      </md-input-container>
-      
-      <div layout="row">
-        <md-button ng-click="classifiedsFilter = '';category=''" class="md-warn">
-          Clear
-        </md-button>
-      </div>
-
-    </div>
-
-    <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left">
-      <md-toolbar class="md-theme-light">
-        <h1 class="md-toolbar-tools">{{ sidebarTitle }}</h1>
-      </md-toolbar>
-      <md-content layout-padding>
-        <form>
-          <md-input-container>
-            <label for="title">Title</label>
-            <input type="text" id="title"
-                   ng-model="classified.title" md-autofocus>
-          </md-input-container>
-          <md-input-container>
-            <label for="price">Price</label>
-            <input type="text" id="price"
-                 ng-model="classified.price">
-          </md-input-container>
-          <md-input-container>
-            <label for="description">Description</label>
-            <textarea type="text" id="description"
-                  ng-model="classified.description">
-            </textarea>
-          </md-input-container>
-          <md-input-container>
-            <label for="image">Image Link</label>
-            <input type="text" id="image"
-                  ng-model="classified.image">
-          </md-input-container>
-          <md-button ng-if="!editing" ng-click="vm.saveClassified(classified)" class="md-primary">
-            Save
-          </md-button>
-          <md-button ng-if="editing" ng-click="vm.saveEdit()" class="md-primary">
-            Save Edit
-          </md-button>
-          <md-button ng-click="vm.closeSidebar()" class="md-warn">
-            Cancel
-          </md-button>
-        </form>
-      </md-content>
-    </md-sidenav>
 
     <md-content class="md-padding" layout="row" layout-wrap>
       <md-card ng-repeat="classified in vm.classifieds | 

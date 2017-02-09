@@ -4,7 +4,7 @@
 
   angular
     .module('ngClassifieds')
-    .controller('classifiedsController', function($scope, $mdSidenav, $mdDialog, $mdToast, classifiedsFactory) {
+    .controller('classifiedsController', function($scope, $state, $mdSidenav, $mdDialog, $mdToast, classifiedsFactory) {
 
       var vm = this;
 
@@ -42,7 +42,7 @@
       }
 
       function openSidebar() {
-        $mdSidenav('left').open();
+        $state.go('classifieds.new')
       }
 
       function closeSidebar() {
@@ -82,10 +82,8 @@
           var index = vm.classifieds.indexOf(classified);
           vm.classifieds.splice(index, 1);
           showToast('Classified Deleted');
-        }
-      };
-
-    });
+      });
+    };
     
     function getCategories(classifieds) {
 
@@ -99,5 +97,4 @@
 
         return _.uniq(categories);
       }
-
 })();
